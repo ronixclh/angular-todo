@@ -1,0 +1,49 @@
+<main class="main">
+  <mat-card appearance="outlined">
+    <mat-card-content class="title">
+      <h1>ToDo App</h1>
+    </mat-card-content>
+
+    <mat-form-field class="form-field">
+      <mat-label>Please add your To-Do</mat-label>
+      <input
+        matInput
+        #message
+        type="text"
+        [(ngModel)]="newTodo"
+        maxlength="250"
+      />
+      <mat-hint align="end">{{ message.value.length }} / 250</mat-hint>
+
+      <ng-container *ngIf="newTodo" matSuffix>
+        <button mat-icon-button aria-label="Add todo" (click)="addTodo()">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Clear" (click)="newTodo = ''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </ng-container>
+    </mat-form-field>
+
+    <mat-card-content>
+      <div *ngFor="let todo of todos; trackBy: trackByTodoId" class="todo-item">
+        <mat-checkbox class="example-margin todo-text">
+          {{ todo.text }}
+        </mat-checkbox>
+
+        <div>
+          <button mat-icon-button aria-label="Edit todo">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            aria-label="Delete todo"
+            (click)="removeTodo(todo.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</main>

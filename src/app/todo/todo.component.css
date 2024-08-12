@@ -1,0 +1,39 @@
+.main {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.todo-text {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.todo-item:hover {
+  background-color: #e0f7fa;
+}
+
+.mat-mdc-card-content:last-child {
+  min-width: 800px;
+}
+
+.title {
+  text-align: center;
+}
+
+.form-field {
+  margin: 1rem 1rem;
+}
