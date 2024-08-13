@@ -25,6 +25,13 @@
       </ng-container>
     </mat-form-field>
 
+    <mat-card-content *ngIf="todos.length === 0">
+      <p>
+        Your productivity server is down. Better reboot with some fresh tasks!
+        🔄💻
+      </p>
+    </mat-card-content>
+
     <mat-card-content>
       <div *ngFor="let todo of todos; trackBy: trackByTodoId" class="todo-item">
         <mat-checkbox class="example-margin todo-text">
@@ -32,13 +39,17 @@
         </mat-checkbox>
 
         <div>
-          <button mat-icon-button aria-label="Edit todo">
+          <button
+            mat-icon-button
+            aria-label="Edit todo"
+            (click)="openDialogEdit()"
+          >
             <mat-icon>edit</mat-icon>
           </button>
           <button
             mat-icon-button
             aria-label="Delete todo"
-            (click)="removeTodo(todo.id)"
+            (click)="openDialogDelete(todo.id)"
           >
             <mat-icon>delete</mat-icon>
           </button>

@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  inject,
+  Inject,
+} from '@angular/core';
 import { CrudComponent } from '../service/crud.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -9,6 +15,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 interface Todo {
   id: number;
@@ -39,6 +54,21 @@ export class TodoComponent implements OnInit {
 
   constructor(private todoService: CrudComponent) {}
 
+  readonly dialog = inject(MatDialog);
+
+  openDialogDelete(todoId: number) {
+    this.dialog.open(DialogElementsDeleteDialog, {
+      data: {
+        id: todoId,
+        deleteMethod: this.removeTodo.bind(this),
+      },
+    });
+  }
+
+  openDialogEdit() {
+    this.dialog.open(DialogElementsEditDialog);
+  }
+
   ngOnInit(): void {
     this.loadTodos();
   }
@@ -67,7 +97,7 @@ export class TodoComponent implements OnInit {
           this.newTodo = '';
         },
         error: (err) => {
-          alert(err);
+          alert('Unable to add todo');
         },
       });
     }
@@ -79,7 +109,7 @@ export class TodoComponent implements OnInit {
         this.todos = this.todos.filter((todo) => todo.id !== id);
       },
       error: (err) => {
-        alert(err);
+        alert('Unable to remove todo');
       },
     });
   }
@@ -96,4 +126,55 @@ export class TodoComponent implements OnInit {
   trackByTodoId(index: number, todo: Todo): number {
     return todo.id;
   }
+}
+
+@Component({
+  selector: 'dialog-elements-delete-dialog',
+  templateUrl: 'dialog.elements.delete.dialog.html',
+  standalone: true,
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatButtonModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DialogElementsDeleteDialog {
+  constructor(
+    @Inject(MAT_DIALOG_DATA)
+    public data: { id: number; deleteMethod: (id: number) => void },
+    private dialogRef: MatDialogRef<DialogElementsDeleteDialog>
+  ) {}
+
+  confirmDelete(): void {
+    this.data.deleteMethod(this.data.id);
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'dialog-elements-edit-dialog',
+  templateUrl: 'dialog.elements.edit.dialog.html',
+  standalone: true,
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatButtonModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DialogElementsEditDialog {
+  // constructor(
+  //   @Inject(MAT_DIALOG_DATA)
+  //   public data: { id: number; editMethod: (id: number) => void },
+  //   private dialogRef: MatDialogRef<DialogElementsEditDialog>
+  // ) {}
+  // confirmEdit(): void {
+  //   this.data.editMethod(this.data.id);
+  //   this.dialogRef.close();
+  // }
 }

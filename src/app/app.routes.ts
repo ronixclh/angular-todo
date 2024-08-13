@@ -4,7 +4,7 @@ import { TodoComponent } from './todo/todo.component';
 
 export const routes: Routes = [
   {
-    path: 'todo',
+    path: '',
     component: TodoComponent,
   },
   {
