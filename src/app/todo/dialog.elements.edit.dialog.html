@@ -1,8 +1,17 @@
 <h2 mat-dialog-title>ToDo Edit</h2>
-<mat-dialog-content
-  >Enter a new value for your Todo with Id
-</mat-dialog-content>
+
+<mat-form-field class="form-field">
+  <mat-label>Enter new ToDo value</mat-label>
+  <input matInput #message type="text" [(ngModel)]="newTodo" maxlength="250" />
+  <mat-hint align="end">{{ message.value.length }} / 250</mat-hint>
+
+  <ng-container *ngIf="newTodo" matSuffix>
+    <button mat-icon-button aria-label="Clear" (click)="newTodo = ''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </ng-container>
+</mat-form-field>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Edit</button>
+  <button mat-button mat-dialog-close (click)="confirmEdit()">Edit</button>
   <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

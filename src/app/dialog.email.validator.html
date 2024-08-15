@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Please provide your email to access this page</h2>
+
+<mat-form-field class="form-field">
+  <mat-label>example&#64;email.com</mat-label>
+  <input
+    matInput
+    (blur)="updateErrorMessage()"
+    [formControl]="email"
+    required
+  />
+  @if (email.invalid) {
+  <mat-error>{{errorMessage()}}</mat-error>
+  }
+
+  <ng-container *ngIf="email" matSuffix>
+    <button mat-icon-button aria-label="Clear" (click)="clearEmail()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </ng-container>
+</mat-form-field>
+<mat-dialog-actions>
+  <button
+    mat-button
+    mat-dialog-close
+    (click)="onSubmit()"
+    [disabled]="email.invalid"
+  >
+    Submit
+  </button>
+</mat-dialog-actions>

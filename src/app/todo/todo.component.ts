@@ -65,8 +65,13 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  openDialogEdit() {
-    this.dialog.open(DialogElementsEditDialog);
+  openDialogEdit(todo: Todo) {
+    this.dialog.open(DialogElementsEditDialog, {
+      data: {
+        todo: todo,
+        editMethod: this.saveTodo.bind(this),
+      },
+    });
   }
 
   ngOnInit(): void {
@@ -114,12 +119,7 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  editTodo(todo: Todo): void {
-    todo.isEditing = true;
-  }
-
   saveTodo(todo: Todo): void {
-    todo.isEditing = false;
     this.todoService.updateTodo(todo).subscribe();
   }
 
@@ -157,6 +157,7 @@ export class DialogElementsDeleteDialog {
 @Component({
   selector: 'dialog-elements-edit-dialog',
   templateUrl: 'dialog.elements.edit.dialog.html',
+  styleUrls: ['./dialog.elements.edit.dialog.css'],
   standalone: true,
   imports: [
     MatDialogTitle,
@@ -164,17 +165,25 @@ export class DialogElementsDeleteDialog {
     MatDialogActions,
     MatDialogClose,
     MatButtonModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatIconModule,
+    MatInputModule,
+    CommonModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogElementsEditDialog {
-  // constructor(
-  //   @Inject(MAT_DIALOG_DATA)
-  //   public data: { id: number; editMethod: (id: number) => void },
-  //   private dialogRef: MatDialogRef<DialogElementsEditDialog>
-  // ) {}
-  // confirmEdit(): void {
-  //   this.data.editMethod(this.data.id);
-  //   this.dialogRef.close();
-  // }
+  newTodo: string = '';
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA)
+    public data: { todo: Todo; editMethod: (todo: Todo) => void },
+    private dialogRef: MatDialogRef<DialogElementsEditDialog>
+  ) {}
+  confirmEdit(): void {
+    this.data.todo.text = this.newTodo;
+    this.data.editMethod(this.data.todo);
+    this.dialogRef.close();
+  }
 }
