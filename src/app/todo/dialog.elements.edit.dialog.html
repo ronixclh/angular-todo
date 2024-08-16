@@ -12,6 +12,8 @@
   </ng-container>
 </mat-form-field>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close (click)="confirmEdit()">Edit</button>
+  <button mat-button mat-dialog-close (click)="confirmEdit()" *ngIf="newTodo">
+    Edit
+  </button>
   <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>
