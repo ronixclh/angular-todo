@@ -1,18 +1,13 @@
 {
   "todos": [
     {
-      "id": 1,
-      "text": "dsfsdf",
+      "id": 4,
+      "text": "asdasd",
       "isEditing": false
     },
     {
-      "id": 2,
-      "text": "sdfsdf",
-      "isEditing": false
-    },
-    {
-      "id": 3,
-      "text": "sdfsdfdfs",
+      "id": 6,
+      "text": "asadsd",
       "isEditing": false
     }
   ]

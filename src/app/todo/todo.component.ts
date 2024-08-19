@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  inject,
-  Inject,
-} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CrudComponent } from '../service/crud.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -15,17 +9,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogElementsDeleteDialog } from './delete-dialog/dialog.element.delete.dialog';
+import { DialogElementsEditDialog } from './edit-dialog/dialog.elements.edit.dialog';
 
-interface Todo {
+export interface Todo {
   id: number;
   text: string;
   isEditing: boolean;
@@ -125,65 +113,5 @@ export class TodoComponent implements OnInit {
 
   trackByTodoId(index: number, todo: Todo): number {
     return todo.id;
-  }
-}
-
-@Component({
-  selector: 'dialog-elements-delete-dialog',
-  templateUrl: 'dialog.elements.delete.dialog.html',
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
-    MatButtonModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class DialogElementsDeleteDialog {
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: { id: number; deleteMethod: (id: number) => void },
-    private dialogRef: MatDialogRef<DialogElementsDeleteDialog>
-  ) {}
-
-  confirmDelete(): void {
-    this.data.deleteMethod(this.data.id);
-    this.dialogRef.close();
-  }
-}
-
-@Component({
-  selector: 'dialog-elements-edit-dialog',
-  templateUrl: 'dialog.elements.edit.dialog.html',
-  styleUrls: ['./dialog.elements.edit.dialog.css'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
-    MatButtonModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatIconModule,
-    MatInputModule,
-    CommonModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class DialogElementsEditDialog {
-  newTodo: string = '';
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: { todo: Todo; editMethod: (todo: Todo) => void },
-    private dialogRef: MatDialogRef<DialogElementsEditDialog>
-  ) {}
-  confirmEdit(): void {
-    this.data.todo.text = this.newTodo;
-    this.data.editMethod(this.data.todo);
-    this.dialogRef.close();
   }
 }
