@@ -10,7 +10,7 @@ interface Todo {
 @Injectable({
   providedIn: 'root',
 })
-export class CrudComponent {
+export class CrudService {
   private apiUrl = 'http://localhost:3000/todos';
 
   constructor(private http: HttpClient) {}

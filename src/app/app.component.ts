@@ -13,6 +13,7 @@ import { EmailValidatorDialog } from './email-validator/dialog.email.validator';
   imports: [NavComponent, CommonModule],
 })
 export class AppComponent implements OnInit {
+  title = 'angular-todo';
   isEmailCorrect: boolean = false;
 
   readonly dialog = inject(MatDialog);

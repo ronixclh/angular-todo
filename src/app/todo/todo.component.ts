@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CrudComponent } from '../service/crud.component';
+import { CrudService } from '../service/crud.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -40,7 +40,7 @@ export class TodoComponent implements OnInit {
   todos: Todo[] = [];
   newTodo: string = '';
 
-  constructor(private todoService: CrudComponent) {}
+  constructor(private todoService: CrudService) {}
 
   readonly dialog = inject(MatDialog);
 
