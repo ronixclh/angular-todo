@@ -2,13 +2,14 @@
 
 ## Description
 
-This is a ToDo application built with Angular for the frontend and `json-server`. The project is set up to run with Docker, making it easy to start and deploy.
+This is a ToDo application built with Angular for the frontend and `json-server`. The project is set up to run with Docker, making it easy to start and deploy on any OS.
 
 ### Tech Stack
 
 - **Frontend**: Angular
 - **Backend**: `json-server`
 - **Containerization**: Docker, Docker Compose
+- **UI Library**: Angular Material
 
 ## How to Run the Application
 
