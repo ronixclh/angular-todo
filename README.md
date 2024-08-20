@@ -30,8 +30,9 @@ docker-compose up --build
 ```
 
 This will:
-Build the Angular frontend.
-Start json-server for the API.
+
+- Build the Angular frontend.
+- Start json-server for the API.
 
 After running the command, the application will be available at:
 
