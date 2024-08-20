@@ -1,42 +1,30 @@
-# Stage 1: Build Angular Universal (SSR) app
-FROM node:18-alpine AS build
+# Stage 1: Сборка Angular-приложения
+FROM node:latest AS build
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Copy package.json and install dependencies
+# Копируем package.json и устанавливаем зависимости
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
-# Install Angular CLI and JSON Server globally
-RUN npm install -g @angular/cli json-server
-
-# Copy the rest of the files
+# Копируем все файлы приложения
 COPY . .
 
-# Build both the browser and server apps
+# Сборка приложения для production
 RUN npm run build --prod
-RUN npm run build:ssr
 
-# Stage 2: Set up Nginx to serve static files
-FROM nginx:alpine AS nginx
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# Stage 2: Создание финального образа на базе nginx для раздачи статических файлов
+FROM nginx:alpine
 
-# Copy the static files from the previous build
+# Копируем сгенерированные файлы в директорию для сервера Nginx
 COPY --from=build /app/dist/angular-todo/browser /usr/share/nginx/html
 
-# Expose port 80 for Nginx
+# Копируем конфигурационный файл для Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Экспонируем порт для доступа
 EXPOSE 80
 
-# Stage 3: Run SSR server and JSON Server
-FROM node:18-alpine AS server
-
-WORKDIR /app
-
-# Copy the build output from Stage 1
-COPY --from=build /app /app
-
-# Start both the Angular SSR server and JSON Server
-CMD ["sh", "-c", "node dist/angular-todo/server/main.js & json-server --watch db.json --port 3000"]
-
-# Expose ports for the SSR server (4000) and JSON Server (3000)
-EXPOSE 4000 3000
+# Запуск Nginx сервера
+CMD ["nginx", "-g", "daemon off;"]
