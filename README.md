@@ -1,27 +1,46 @@
-# AngularTodo
+# Angular ToDo Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+## Description
 
-## Development server
+This is a ToDo application built with Angular for the frontend and `json-server`. The project is set up to run with Docker, making it easy to start and deploy.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Tech Stack
 
-## Code scaffolding
+- **Frontend**: Angular
+- **Backend**: `json-server`
+- **Containerization**: Docker, Docker Compose
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How to Run the Application
 
-## Build
+### Step 1: Fork the Repository
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+First, fork this repository. Then, clone the forked repository to your local machine:
 
-## Running unit tests
+```bash
+git clone https://github.com/YOUR-USERNAME/angular-todo.git
+cd angular-todo
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Step 2: Run the Application with Docker
 
-## Running end-to-end tests
+The application is pre-configured to run with Docker. Simply run the following command to build and start the containers:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+docker-compose up --build
+```
 
-## Further help
+This will:
+Build the Angular frontend.
+Start json-server for the API.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+After running the command, the application will be available at:
+
+```bash
+http://localhost:4200
+```
+
+The API will be available at:
+
+```bash
+http://localhost:3000
+```
