@@ -10,7 +10,7 @@ This is a ToDo application built with Angular for the frontend and `json-server`
 - **Backend**: `json-server`
 - **Containerization**: Docker, Docker Compose
 - **UI Library**: Angular Material
-- **Github Actions** are set-up to autmatically run tests
+- **Github Actions** are set-up to automatically run tests
 
 ## How to Run the Application
 
