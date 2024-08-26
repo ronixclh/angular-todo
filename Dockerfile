@@ -18,7 +18,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Копируем сгенерированные файлы в директорию для сервера Nginx
-COPY --from=build /app/dist/angular-todo-app/browser /usr/share/nginx/html
+COPY --from=build /app/dist/angular-todo/browser /usr/share/nginx/html
 
 # Копируем конфигурационный файл для Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
