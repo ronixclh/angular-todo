@@ -79,11 +79,11 @@ export class TodoComponent implements OnInit {
 
   addTodo(): void {
     if (this.newTodo.trim()) {
-      const newTodo: Todo = {
-        id: 0,
+      const newTodo: Omit<Todo, 'id'> = {
         text: this.newTodo.trim(),
         isEditing: false,
       };
+
       this.todoService.addTodos(newTodo).subscribe({
         next: (todo) => {
           this.todos.push({ ...todo, isEditing: false });
@@ -97,6 +97,7 @@ export class TodoComponent implements OnInit {
   }
 
   removeTodo(id: number): void {
+    console.log('Remove id' + id);
     this.todoService.deleteTodo(id).subscribe({
       next: () => {
         this.todos = this.todos.filter((todo) => todo.id !== id);
@@ -112,6 +113,7 @@ export class TodoComponent implements OnInit {
   }
 
   trackByTodoId(index: number, todo: Todo): number {
+    console.log('Track by todo id' + todo.id);
     return todo.id;
   }
 }

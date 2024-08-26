@@ -19,7 +19,7 @@ export class CrudService {
     return this.http.get<Todo[]>(this.apiUrl);
   }
 
-  addTodos(todo: Todo): Observable<Todo> {
+  addTodos(todo: Omit<Todo, 'id'>): Observable<Todo> {
     return this.http.post<Todo>(this.apiUrl, todo);
   }
 
